@@ -1,3 +1,10 @@
+
+// de afuera hacia adentro
+// endpoint -> caso de uso -> model
+
+// antes de los endpoint y los usecases tenemos que crear el model
+// ahora estamos en models
+
 const mongoose = require('mongoose')
 
 const usersSchema =  new mongoose.Schema({
@@ -47,7 +54,8 @@ const usersSchema =  new mongoose.Schema({
         required: true
     },
     validated: {
-        type: Number,
+        type: String,
+        enum: [ 'enabled', 'disabled'],
         required: true
     },
     profile: {
