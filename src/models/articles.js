@@ -39,7 +39,8 @@ const articlesSchema = new mongoose.Schema({
         required:true
     },
     updatedate:{
-        type: Date
+        type: Date,
+        required:true
     }
     
 })

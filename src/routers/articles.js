@@ -46,4 +46,48 @@ router.post('/', async (request,response)=>{
     }
 })
 
+router.patch('/:id', async(request,response) =>{
+    try{
+        const {id} = request.params
+        const articleUpdated = await articles.updateById(id, request.body)
+        response.json({
+            success: true,
+            message: 'Article updated',
+            data:{
+                article: articleUpdated
+            }
+        })
+    }catch(error){
+        response.status(400)
+        response.json({
+            success: false, 
+            message: 'Error at Article update',
+            error: error.message
+        })
+    }
+})
+
+router.delete('/:id', async(request,response)=>{
+try{
+    const {id} = request.params
+    const articleDeleted = await articles.deleteById(id)
+    response.json({
+        success: true,
+        message: 'Article deleted',
+        data:{
+            article: articleDeleted
+        }
+    })
+
+}catch(error){
+    response.status(400)
+    response.json({
+        success: false,
+        message: "Error at Article delete",
+        error: error.message
+
+    })
+}
+})
+
 module.exports = router
