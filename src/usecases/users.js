@@ -11,7 +11,7 @@ function getAll(){
     return Users.find()
 }
 
-function create(name, lastName, nickname, email, password, avatar_url, publishes, validated, profile, especiality_id, cedula){
+async function create(name, lastName, nickname, email, password, avatar_url, publishes, validated, profile, especiality_id, cedula){
 
 
     // Inicio de la funcion userFound para saber si el email ya existe
