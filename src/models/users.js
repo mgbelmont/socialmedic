@@ -47,7 +47,8 @@ const usersSchema =  new mongoose.Schema({
         required: true
     },
     validated: {
-        type: Number,
+        type: String,
+        enum: [ 'Suscrito', 'Validado', 'Rechazado'],
         required: true
     },
     profile: {
