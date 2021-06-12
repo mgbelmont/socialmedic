@@ -55,7 +55,7 @@ const usersSchema =  new mongoose.Schema({
     },
     validated: {
         type: String,
-        enum: [ 'enabled', 'disabled'],
+        enum: [ 'Suscrito', 'Validado', 'Rechazado'],
         required: true
     },
     profile: {
