@@ -27,8 +27,8 @@ router.get('/', async (request,response)=>{
 
 router.post('/', async (request,response)=>{
     try{
-        const {title, image, content, user_id, tags,categories,status} = request.body
-        const articleCreated = await articles.create(title, image, content, user_id, tags,categories,status)
+        const {title, image, content, user_id, tags,category_id,status} = request.body
+        const articleCreated = await articles.create(title, image, content, user_id, tags,category_id,status)
         response.json({
             success: true,
             message: 'New Article created',

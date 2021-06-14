@@ -26,9 +26,10 @@ const articlesSchema = new mongoose.Schema({
         enum: [ 'enabled', 'disabled'],
         required: true
     },
-    categories:{
-        type: [String],
-        required: true
+    category_id: {
+        type: String,
+        required: true,
+        minLength:2
     },
     tags:{
         type: [String],
