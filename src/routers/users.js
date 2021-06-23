@@ -1,11 +1,3 @@
-
-
-// de afuera hacia adentro
-// endpoint -> caso de uso -> modelo
-
-// ya tenemos el modelo en la carpeta models y el caso de uso en la carpeta usecases
-// y ahora estamos en el endpoint
-
 const { response } = require('express')
 const express = require('express')
 
