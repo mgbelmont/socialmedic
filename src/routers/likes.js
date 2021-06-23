@@ -25,6 +25,7 @@ router.get('/', async (request,response)=>{
     }
 })
 
+
 router.get('/:document/:id', async (request,response)=>{
     try{
         const {document, id} = request.params
@@ -69,6 +70,7 @@ router.post('/',  async (request,response)=>{
 
 router.delete('/:id', async(request, response) =>{
     try{
+        //id document y id user
         const {document_type, user_id} = request.body
         const {id} = request.params
         const deleteLike = await likes.deleteById(id)
