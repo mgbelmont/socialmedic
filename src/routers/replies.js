@@ -90,4 +90,26 @@ router.get('/count/:type/:id', async (request,response)=>{
     }
 })
 
+router.delete('/:id',async (request,response)=>{
+    try{
+        const { id } = request.params;
+        const replyDeleted = await replies.deleteById(id);
+        response.json({ 
+            success: true,
+            message: 'Reply Deleted',
+            data: {
+                replies: replyDeleted            
+            }
+        });
+
+    }catch(error){
+        response.status(400)
+        response.json({ 
+            success: false,
+            message: 'Error at deleted replies',
+            error:  error.message    
+        });
+    }    
+});
+
 module.exports = router
