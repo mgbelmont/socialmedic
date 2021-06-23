@@ -129,4 +129,26 @@ router.get('/:id', async (request, response)=>{
 })
 
 
+router.patch('/:id', async (request, response)=>{
+    try{
+        const { id } = request.params
+        const  userById = await users.updateById(id, request.body)
+        response.json({ 
+            success: true,
+            message: 'User Updated',
+            data: {
+                users: userById
+            }
+        })
+    }catch(error){
+        response.status(400)
+        response.json({ 
+            success: false,
+            message: 'Could not Updated user',
+            error:  error.message
+            
+        })
+    }
+})
+
 module.exports = router

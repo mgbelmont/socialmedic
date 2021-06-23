@@ -24,6 +24,10 @@ function deleteById(id){
     return Users.findByIdAndDelete(id);
 }
 
+function updateById(id,dataToUpdate){
+    return Users.findByIdAndUpdate(id,dataToUpdate);
+}
+
 async function create(name, lastname, lastnamem, nickname, email, password, especiality_id, cedula){
 
 
@@ -72,6 +76,7 @@ module.exports = {
     getAll,
     getById,
     deleteById,
+    updateById,
     create,
     login
 }
