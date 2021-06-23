@@ -7,37 +7,45 @@ const webinarsSchema = new mongoose.Schema({
         maxLength: 100,
         required: true
     },
-    user_id:{
+    user_id: {
         type: String,
-        required:true
+        required: true
     },
-    image:{
+    image: {
         type: String,
         minLength: 5,
         required: true
     },
-    description:{
+    video_url: {
         type: String,
-        minLength:5,
+        minLength: 5,
         required: true
     },
-    duration:{
+    description: {
+        type: String,
+        minLength: 5,
+        required: true
+    },
+    datewebinar: {
         type: String,
         required: true
     },
-    categories:{
+    duration: {
         type: String,
-        enum: [ 'Cardiovascular y Metabolico', 'Gastro', 'Sobrepeso y Obesidad','Salud Femenina', 'OTC' ],
         required: true
     },
-    creationdate:{
+    category_id: {
+        type: String,
+        required: true,
+        minLength: 2
+    },
+    creationdate: {
         type: Date,
-        required:true
+        required: true
     },
-    updatedate:{
+    updatedate: {
         type: Date
     }
-    
 })
 
 const model = mongoose.model('webinars', webinarsSchema)
