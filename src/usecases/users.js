@@ -1,10 +1,3 @@
-
-// de afuera hacia adentro
-// endpoint -> caso de uso -> modelo
-
-// ya tenemos el modelo en la carpeta Models
-// y ahora estamos en caso de uso
-
 const Users = require('../models/users')
 
 const bcrypt = require('../lib/bcrypt')
