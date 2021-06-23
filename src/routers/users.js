@@ -35,11 +35,11 @@ router.get('/', async (request,response)=>{
 
 router.post('/', async (request,response)=>{
     try{
-        const {name, lastName, lastNameM, email, password, validated, especiality_id, cedula} = request.body
+        const {name, lastname, lastnamem, email, password, especiality_id, cedula} = request.body
 
-        const nickname = `${name} ${lastName}`
+        const nickname = `${name}${lastname}`
 
-        const userCreated = await users.create(name, lastName, lastNameM, nickname, email, password, validated, especiality_id, cedula)
+        const userCreated = await users.create(name, lastname, lastnamem, nickname, email, password, especiality_id, cedula)
         
         response.json({
             success: true,

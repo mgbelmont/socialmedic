@@ -16,7 +16,7 @@ function getAll(){
     return Users.find()
 }
 
-async function create(name, lastName, lastNameM, nickname, email, password, validated, especiality_id, cedula){
+async function create(name, lastname, lastnamem, nickname, email, password, especiality_id, cedula){
 
 
     // Inicio de la funcion userFound para saber si el email ya existe
@@ -32,10 +32,12 @@ async function create(name, lastName, lastNameM, nickname, email, password, vali
 
     const updatedate = Date.now()
     const registerdate = Date.now()
-    const published = 0
+    const published = "disabled"
+    const profile = "medico"
+    const validated = "Validando"
 
 
-    return Users.create({name, lastName, lastNameM, nickname, email, password: encryptedPassword, published, validated, especiality_id, cedula, updatedate, registerdate})
+    return Users.create({name, lastname, lastnamem, nickname, email, password: encryptedPassword, published, validated, profile, especiality_id, cedula, updatedate, registerdate})
     
 }
 
