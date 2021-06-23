@@ -27,8 +27,8 @@ router.get('/', async (request,response)=>{
 
 router.post('/', async (request,response)=>{
     try{
-        const {title, image, content, user_id, tags,categories,status} = request.body
-        const articleCreated = await articles.create(title, image, content, user_id, tags,categories,status)
+        const {title, image, content, user_id, tags,category_id,status} = request.body
+        const articleCreated = await articles.create(title, image, content, user_id, tags,category_id,status)
         response.json({
             success: true,
             message: 'New Article created',
@@ -44,6 +44,50 @@ router.post('/', async (request,response)=>{
             error: error.message
         })
     }
+})
+
+router.patch('/:id', async(request,response) =>{
+    try{
+        const {id} = request.params
+        const articleUpdated = await articles.updateById(id, request.body)
+        response.json({
+            success: true,
+            message: 'Article updated',
+            data:{
+                article: articleUpdated
+            }
+        })
+    }catch(error){
+        response.status(400)
+        response.json({
+            success: false, 
+            message: 'Error at Article update',
+            error: error.message
+        })
+    }
+})
+
+router.delete('/:id', async(request,response)=>{
+try{
+    const {id} = request.params
+    const articleDeleted = await articles.deleteById(id)
+    response.json({
+        success: true,
+        message: 'Article deleted',
+        data:{
+            article: articleDeleted
+        }
+    })
+
+}catch(error){
+    response.status(400)
+    response.json({
+        success: false,
+        message: "Error at Article delete",
+        error: error.message
+
+    })
+}
 })
 
 module.exports = router
