@@ -2,6 +2,7 @@ const express = require('express')
 const cors= require('cors')
 const articlesRouter = require('./routers/articles')
 const usersRouter = require('./routers/users')
+const likesRouter = require('./routers/likes')
 
 const middlewareLog = require('./middlewares/middleware')
 
@@ -12,5 +13,6 @@ app.use(express.json())
 app.use(middlewareLog)
 app.use('/articles',articlesRouter)
 app.use('/articles',usersRouter)
+app.use('/likes',likesRouter)
 
 module.exports= app
