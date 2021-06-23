@@ -16,6 +16,14 @@ function getAll(){
     return Users.find()
 }
 
+function getById( id ) {
+    return Users.findById( id )
+}
+
+function deleteById(id){
+    return Users.findByIdAndDelete(id);
+}
+
 async function create(name, lastname, lastnamem, nickname, email, password, especiality_id, cedula){
 
 
@@ -62,6 +70,8 @@ async function login (email, password){
 
 module.exports = {
     getAll,
+    getById,
+    deleteById,
     create,
     login
 }
