@@ -24,6 +24,26 @@ router.get('/', async (request,response)=>{
         })
     }
 })
+router.get('/user', async (request,response)=>{
+    try{
+        const {user_id, document_id} = request.body
+        const like = await likes.getByUserAndDocument(user_id, document_id)
+        response.json({
+            success: true,
+            message: 'Like by user and document',
+            data: {
+                like: like
+            }
+        })
+    }catch(error){
+        response.status(400)
+        response.json({
+            success: false, 
+            message: 'Could not get like',
+            error: error.message
+        })
+    }
+})
 
 
 router.get('/:document/:id', async (request,response)=>{
@@ -70,8 +90,7 @@ router.post('/',  async (request,response)=>{
 
 router.delete('/:id', async(request, response) =>{
     try{
-        //id document y id user
-        const {document_type, user_id} = request.body
+        
         const {id} = request.params
         const deleteLike = await likes.deleteById(id)
         response.json({
