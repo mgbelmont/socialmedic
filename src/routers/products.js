@@ -90,4 +90,26 @@ router.patch('/:id', async (request, response)=>{
     }
 })
 
+router.delete('/:id',async (request,response)=>{
+    try{
+        const { id } = request.params;
+        const productDeleted = await products.deleteById(id);
+        response.json({ 
+            success: true,
+            message: 'Product Deleted',
+            data: {
+                replies: productDeleted            
+            }
+        });
+
+    }catch(error){
+        response.status(400)
+        response.json({ 
+            success: false,
+            message: 'Error at deleted product',
+            error:  error.message    
+        });
+    }    
+});
+
 module.exports = router

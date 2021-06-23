@@ -20,11 +20,14 @@ function create({ comment, document_type, document_id, user_id }){
     return Replies.create({ comment, document_type, document_id, user_id, creationdate });
 }
 
+function deleteById(id){
+    return Replies.findByIdAndDelete(id);
+}
 
 module.exports={
     getAll,
     getCountRepliesByDocument,
     getByDocumentId,
-    create
+    create,
+    deleteById
 }
-

@@ -19,9 +19,14 @@ function updateById(id,dataToUpdate){
     return Products.findByIdAndUpdate(id,dataToUpdate);
 }
 
+function deleteById(id){
+    return Products.findByIdAndDelete(id);
+}
+
 module.exports={
     getAll,
     getById,
     create,
-    updateById
+    updateById, 
+    deleteById
 }
