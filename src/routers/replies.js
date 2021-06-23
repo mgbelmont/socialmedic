@@ -69,4 +69,25 @@ router.get('/:type/:id',async (request,response)=>{
     }    
 });
 
+router.get('/count/:type/:id', async (request,response)=>{
+    try{
+        const {type, id} = request.params
+        const countReplies = await replies.getCountRepliesByDocument(type, id)
+        response.json({
+            success: true,
+            message: 'All replies',
+            data: {
+                replies: countReplies
+            }
+        })
+    }catch(error){
+        response.status(400)
+        response.json({
+            success: false, 
+            message: 'Could not get replies by document',
+            error: error.message
+        })
+    }
+})
+
 module.exports = router
