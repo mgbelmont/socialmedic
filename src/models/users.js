@@ -14,13 +14,13 @@ const usersSchema =  new mongoose.Schema({
         minLenght: 2,
         maxLength: 20
     },
-    lastName: {
+    lastname: {
         type: String,
         required: true,
         minLenght: 2,
         maxLength: 20
     },
-    lastNameM: {
+    lastnamem: {
         type: String,
         required: true,
         minLenght: 2,
@@ -46,7 +46,8 @@ const usersSchema =  new mongoose.Schema({
         minLenght: 1
     },
     published: {
-        type: Number,
+        type: String,
+        enum: [ 'enabled', 'disabled'],
         required: true
     },
     updatedate :{
@@ -63,8 +64,9 @@ const usersSchema =  new mongoose.Schema({
         required: true
     },
     profile: {
-        type: Number,
-        minLenght: 1
+        type: String,
+        enum: [ 'admin', 'medico'],
+        required: true
     },
     especiality_id: {
         type: String,
