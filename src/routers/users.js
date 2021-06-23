@@ -35,9 +35,11 @@ router.get('/', async (request,response)=>{
 
 router.post('/', async (request,response)=>{
     try{
-        const {name, lastName, nickname, email, password, avatar_url, publishes, validated, profile, especiality_id, cedula} = request.body
-        
-        const userCreated = await users.create(name, lastName, nickname, email, password, avatar_url, publishes, validated, profile, especiality_id, cedula)
+        const {name, lastname, lastnamem, email, password, especiality_id, cedula} = request.body
+
+        const nickname = `${name}${lastname}`
+
+        const userCreated = await users.create(name, lastname, lastnamem, nickname, email, password, especiality_id, cedula)
         
         response.json({
             success: true,
@@ -55,5 +57,32 @@ router.post('/', async (request,response)=>{
         })
     }
 })
+
+router.post('/login', async (request, response) => {
+    try {
+
+        const { email, password} = request.body
+
+        const token = await users.login(email, password)
+
+        response.json({
+            success: true,
+            message: 'Logged In',
+            data: {
+                token
+            }
+        })
+        
+    } catch (error) {
+        response.status(400)
+
+        response.json({
+            success: false,
+            message : 'Could not Login',
+            error: error.message     
+        })
+    }
+})
+
 
 module.exports = router

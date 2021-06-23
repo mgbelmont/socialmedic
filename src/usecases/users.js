@@ -7,11 +7,16 @@
 
 const Users = require('../models/users')
 
+const bcrypt = require('../lib/bcrypt')
+
+const jwt = require('../lib/jwt')
+
+
 function getAll(){
     return Users.find()
 }
 
-async function create(name, lastName, nickname, email, password, avatar_url, publishes, validated, profile, especiality_id, cedula){
+async function create(name, lastname, lastnamem, nickname, email, password, especiality_id, cedula){
 
 
     // Inicio de la funcion userFound para saber si el email ya existe
@@ -27,14 +32,38 @@ async function create(name, lastName, nickname, email, password, avatar_url, pub
 
     const updatedate = Date.now()
     const registerdate = Date.now()
+    const published = "disabled"
+    const profile = "medico"
+    const validated = "Validando"
 
-    return Users.create({name, lastName, nickname, email, password: encryptedPassword, avatar_url, publishes, validated, profile, especiality_id, cedula, updatedate, registerdate})
+
+    return Users.create({name, lastname, lastnamem, nickname, email, password: encryptedPassword, published, validated, profile, especiality_id, cedula, updatedate, registerdate})
     
 }
 
+
+async function login (email, password){
+    const userFound = await Users.findOne( {email} )
+
+    if(!userFound){
+        throw new Error('Invalid Email')
+    }
+
+    const isValidPassword = await bcrypt.compare(password, userFound.password)
+    
+    if(!isValidPassword){
+        throw new Error ('Invalid Password')
+    }
+
+    return jwt.sign( {id: userFound._id} )
+
+}
+
+
 module.exports = {
     getAll,
-    create
+    create,
+    login
 }
 
 

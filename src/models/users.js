@@ -14,7 +14,13 @@ const usersSchema =  new mongoose.Schema({
         minLenght: 2,
         maxLength: 20
     },
-    lastName: {
+    lastname: {
+        type: String,
+        required: true,
+        minLenght: 2,
+        maxLength: 20
+    },
+    lastnamem: {
         type: String,
         required: true,
         minLenght: 2,
@@ -22,7 +28,6 @@ const usersSchema =  new mongoose.Schema({
     },
     nickname: {
         type: String,
-        required: true,
         minLenght: 1
     },
     email: {
@@ -38,11 +43,11 @@ const usersSchema =  new mongoose.Schema({
     },
     avatar_url: {
         type: String,
-        required: true,
         minLenght: 1
     },
-    publishes: {
-        type: Number,
+    published: {
+        type: String,
+        enum: [ 'enabled', 'disabled'],
         required: true
     },
     updatedate :{
@@ -55,13 +60,13 @@ const usersSchema =  new mongoose.Schema({
     },
     validated: {
         type: String,
-        enum: [ 'Suscrito', 'Validado', 'Rechazado'],
+        enum: [ 'Suscrito', 'Validando', 'Rechazado'],
         required: true
     },
     profile: {
         type: String,
-        required: true,
-        minLenght: 1
+        enum: [ 'admin', 'medico'],
+        required: true
     },
     especiality_id: {
         type: String,
