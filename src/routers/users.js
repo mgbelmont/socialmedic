@@ -84,5 +84,49 @@ router.post('/login', async (request, response) => {
     }
 })
 
+router.delete('/:id', async (request, response)=>{
+    try{
+        const { id } = request.params
+        const  userDeleted = await users.deleteById(id)
+        response.json({ 
+            success: true,
+            message: 'User Deleted',
+            data: {
+                users: userDeleted
+            }
+        })
+    }catch(error){
+        response.status(400)
+        response.json({ 
+            success: false,
+            message: 'Could not delete user',
+            error:  error.message
+            
+        })
+    }
+})
+
+router.get('/:id', async (request, response)=>{
+    try{
+        const { id } = request.params
+        const  userById = await users.getById(id)
+        response.json({ 
+            success: true,
+            message: 'User Found',
+            data: {
+                users: userById
+            }
+        })
+    }catch(error){
+        response.status(400)
+        response.json({ 
+            success: false,
+            message: 'Could not found user',
+            error:  error.message
+            
+        })
+    }
+})
+
 
 module.exports = router
