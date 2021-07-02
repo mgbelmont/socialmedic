@@ -40,7 +40,8 @@ const usersSchema = new mongoose.Schema({
     },
     can_publish: {
         type: Boolean,
-        required: true
+        required: true,
+        default: false
     },
     updatedate: {
         type: Date,
