@@ -1,11 +1,15 @@
 const Webinars = require('../models/webinars')
 
 function getAll() {
-    return Webinars.find()
+    return Webinars.find().sort({creationDate:-1})
+    .populate({path: "user_id", model: 'users',  })
+    .exec();  
 }
 
 function getById(id) {
     return Webinars.findById(id)
+    .populate({path: "user_id", model: 'users',  })
+    .exec(); 
 }
 
 function create(title, user_id, image, video_url, description, datewebinar, duration, category_id) {
