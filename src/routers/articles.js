@@ -48,8 +48,8 @@ router.get('/:id', async (request, response) => {
 
 router.post('/', async (request, response) => {
     try {
-        const { title, image, content, user_id, tags, category_id, status } = request.body
-        const articleCreated = await articles.create(title, image, content, user_id, tags, category_id, status)
+        const { title, image, content, user_id, tags, category_id, enabled } = request.body
+        const articleCreated = await articles.create(title, image, content, user_id, tags, category_id, enabled)
         response.json({
             success: true,
             message: 'New Article created',
