@@ -5,31 +5,31 @@ const bcrypt = require('../lib/bcrypt')
 const jwt = require('../lib/jwt')
 
 
-function getAll(){
+function getAll() {
     return Users.find()
 }
 
-function getById( id ) {
-    return Users.findById( id )
+function getById(id) {
+    return Users.findById(id)
 }
 
-function deleteById(id){
+function deleteById(id) {
     return Users.findByIdAndDelete(id);
 }
 
-function updateById(id,dataToUpdate){
-    return Users.findByIdAndUpdate(id,dataToUpdate);
+function updateById(id, dataToUpdate) {
+    return Users.findByIdAndUpdate(id, dataToUpdate);
 }
 
-async function create(name, lastname, lastnamem, nickname, email, password, especiality_id, cedula){
+async function create(firstname, lastname, mother_lastname, nickname, email, password, especiality_id, professional_license) {
 
 
     // Inicio de la funcion userFound para saber si el email ya existe
-    const userFound = await Users.findOne( {email: email} )
+    const userFound = await Users.findOne({ email: email })
 
     if (userFound) {
         throw new Error('User already exist')
-    } 
+    }
     // Fin de la funcion userFound
 
     // Para encryptar el password
@@ -37,30 +37,30 @@ async function create(name, lastname, lastnamem, nickname, email, password, espe
 
     const updatedate = Date.now()
     const registerdate = Date.now()
-    const published = "disabled"
-    const profile = "medico"
-    const validated = "Validando"
+    const can_publish = false
+    const role = "medico"
+    const status = "Validando"
 
 
-    return Users.create({name, lastname, lastnamem, nickname, email, password: encryptedPassword, published, validated, profile, especiality_id, cedula, updatedate, registerdate})
-    
+    return Users.create({ firstname, lastname, mother_lastname, nickname, email, password: encryptedPassword, can_publish, status, role, especiality_id, professional_license, updatedate, registerdate })
+
 }
 
 
-async function login (email, password){
-    const userFound = await Users.findOne( {email} )
+async function login(email, password) {
+    const userFound = await Users.findOne({ email })
 
-    if(!userFound){
+    if (!userFound) {
         throw new Error('Invalid Email')
     }
 
     const isValidPassword = await bcrypt.compare(password, userFound.password)
-    
-    if(!isValidPassword){
-        throw new Error ('Invalid Password')
+
+    if (!isValidPassword) {
+        throw new Error('Invalid Password')
     }
 
-    return jwt.sign( {id: userFound._id} )
+    return jwt.sign({ id: userFound._id })
 
 }
 

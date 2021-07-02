@@ -1,14 +1,7 @@
-
-// de afuera hacia adentro
-// endpoint -> caso de uso -> model
-
-// antes de los endpoint y los usecases tenemos que crear el model
-// ahora estamos en models
-
 const mongoose = require('mongoose')
 
-const usersSchema =  new mongoose.Schema({
-    name: {
+const usersSchema = new mongoose.Schema({
+    firstname: {
         type: String,
         required: true,
         minLenght: 2,
@@ -20,7 +13,7 @@ const usersSchema =  new mongoose.Schema({
         minLenght: 2,
         maxLength: 20
     },
-    lastnamem: {
+    mother_lastname: {
         type: String,
         required: true,
         minLenght: 2,
@@ -31,41 +24,40 @@ const usersSchema =  new mongoose.Schema({
         minLenght: 1
     },
     email: {
-        type: String, 
-        match: /.+@.+\..+/, 
+        type: String,
+        match: /.+@.+\..+/,
         required: true,
         maxLength: 100
     },
-    password:{
-        type: String, 
-        required : true,
+    password: {
+        type: String,
+        required: true,
         minLength: 1
     },
     avatar_url: {
         type: String,
         minLenght: 1
     },
-    published: {
-        type: String,
-        enum: [ 'enabled', 'disabled'],
+    can_publish: {
+        type: Boolean,
         required: true
     },
-    updatedate :{
+    updatedate: {
         type: Date,
         required: true
     },
-    registerdate :{
+    registerdate: {
         type: Date,
         required: true
     },
-    validated: {
+    status: {
         type: String,
-        enum: [ 'Suscrito', 'Validando', 'Rechazado'],
+        enum: ['Suscrito', 'Validando', 'Rechazado'],
         required: true
     },
-    profile: {
+    role: {
         type: String,
-        enum: [ 'admin', 'medico'],
+        enum: ['admin', 'medico'],
         required: true
     },
     especiality_id: {
@@ -73,7 +65,7 @@ const usersSchema =  new mongoose.Schema({
         required: true,
         minLenght: 1
     },
-    cedula: {
+    professional_license: {
         type: String,
         required: true,
         minLenght: 1
