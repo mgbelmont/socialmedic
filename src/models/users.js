@@ -60,7 +60,7 @@ const usersSchema = new mongoose.Schema({
         enum: ['admin', 'medico'],
         required: true
     },
-    especiality_id: {
+    specialty_id: {
         type: String,
         required: true,
         minLenght: 1
