@@ -10,7 +10,7 @@ function getAll() {
 }
 
 function getById(id) {
-    return Users.findById(id)//.populate({ path: "specialty_id", model: 'specialties', }).exec();
+    return Users.findById(id).populate({ path: "specialty_id", model: 'specialties', }).exec();
 }
 
 function deleteById(id) {
