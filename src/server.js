@@ -8,6 +8,8 @@ const webinarsRouter = require('./routers/webinars')
 const repliesRouter = require('./routers/replies')
 const categoriesRouter = require('./routers/categories')
 
+const presentationsRouter = require('./routers/presentations')
+
 const middlewareLog = require('./middlewares/middleware')
 
 const app = express()
@@ -23,6 +25,7 @@ app.use('/likes', likesRouter)
 app.use('/replies', repliesRouter)
 app.use('/categories', categoriesRouter)
 
+app.use('/presentations', presentationsRouter)
 
 
 module.exports = app
