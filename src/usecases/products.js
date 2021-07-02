@@ -2,10 +2,14 @@ const Products = require('../models/products')
 
 function getAll () {
     return Products.find()
+    .populate({path: "category_id", model: 'categories',  })
+    .populate({path: "presentation_id", model: 'presentations',  })
 }
 
 function getById(id){
     return Products.findById(id)
+    .populate({path: "category_id", model: 'categories',  })
+    .populate({path: "presentation_id", model: 'presentations',  })
 }
 
 function create({ name, image, sustance, presentation_id, category_id, formulation, terapeutic_indications, general_description, dose }){
