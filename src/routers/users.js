@@ -27,11 +27,11 @@ router.get('/', async (request, response) => {
 
 router.post('/', async (request, response) => {
     try {
-        const { firstname, lastname, mother_lastname, email, password, especiality_id, professional_license } = request.body
+        const { firstname, lastname, mother_lastname, email, password, specialty_id, professional_license } = request.body
 
         const nickname = `${firstname}${lastname}`
 
-        const userCreated = await users.create(firstname, lastname, mother_lastname, nickname, email, password, especiality_id, professional_license)
+        const userCreated = await users.create(firstname, lastname, mother_lastname, nickname, email, password, specialty_id, professional_license)
 
         response.json({
             success: true,
