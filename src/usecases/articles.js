@@ -4,10 +4,10 @@ function getAll(){
     return Articles.find()
 }
 
-function create(title, image, content, user_id, tags,category_id,status){
+function create(title, image, content, user_id, tags,category_id,enabled){
     const creationdate = Date.now()
     const updatedate = Date.now()
-    return Articles.create({title, image, content, user_id, tags,category_id,status,creationdate,updatedate })
+    return Articles.create({title, image, content, user_id, tags,category_id,enabled,creationdate,updatedate })
 }
 
 function updateById(id, dataToUpdate){
