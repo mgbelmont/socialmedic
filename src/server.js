@@ -6,6 +6,7 @@ const likesRouter = require('./routers/likes')
 const productsRouter = require('./routers/products')
 const webinarsRouter = require('./routers/webinars')
 const repliesRouter = require('./routers/replies')
+const specialtiesRouter = require('./routers/specialties')
 
 const middlewareLog = require('./middlewares/middleware')
 
@@ -20,6 +21,7 @@ app.use('/products', productsRouter)
 app.use('/webinars', webinarsRouter)
 app.use('/likes', likesRouter)
 app.use('/replies', repliesRouter)
+app.use('/specialties', specialtiesRouter)
 
 
 

@@ -10,7 +10,7 @@ function getAll() {
 }
 
 function getById(id) {
-    return Users.findById(id)
+    return Users.findById(id)//.populate({ path: "specialty_id", model: 'specialties', }).exec();
 }
 
 function deleteById(id) {
@@ -21,7 +21,7 @@ function updateById(id, dataToUpdate) {
     return Users.findByIdAndUpdate(id, dataToUpdate);
 }
 
-async function create(firstname, lastname, mother_lastname, nickname, email, password, especiality_id, professional_license) {
+async function create(firstname, lastname, mother_lastname, nickname, email, password, specialty_id, professional_license) {
 
 
     // Inicio de la funcion userFound para saber si el email ya existe
@@ -42,7 +42,7 @@ async function create(firstname, lastname, mother_lastname, nickname, email, pas
     const status = "Validando"
 
 
-    return Users.create({ firstname, lastname, mother_lastname, nickname, email, password: encryptedPassword, can_publish, status, role, especiality_id, professional_license, updatedate, registerdate })
+    return Users.create({ firstname, lastname, mother_lastname, nickname, email, password: encryptedPassword, can_publish, status, role, specialty_id, professional_license, updatedate, registerdate })
 
 }
 
