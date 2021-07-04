@@ -38,7 +38,7 @@ async function create(firstname, lastname, mother_lastname, nickname, email, pas
     const updatedate = Date.now()
     const registerdate = Date.now()
     const can_publish = false
-    const role = "medico"
+    const role = ["medico"]
     const status = "Validando"
 
 
@@ -63,6 +63,7 @@ async function login(email, password) {
     return jwt.sign({ id: userFound._id })
 
 }
+
 
 
 module.exports = {

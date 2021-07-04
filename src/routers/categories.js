@@ -2,10 +2,13 @@ const { response } = require('express')
 const express = require('express')
 
 const categories = require('../usecases/categories')
+const authMiddlewares = require('../middlewares/auth')
+
 
 const router = express.Router()
+router.use(authMiddlewares.auth)
 
-router.get('/', async (request, response) => {
+router.get('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
     try {
         const allCategories = await categories.getAll()
         response.json({

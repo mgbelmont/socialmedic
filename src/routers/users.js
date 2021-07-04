@@ -2,10 +2,11 @@ const { response } = require('express')
 const express = require('express')
 
 const users = require('../usecases/users')
+const authMiddlewares = require('../middlewares/auth')
 
 const router = express.Router()
 
-router.get('/', async (request, response) => {
+router.get('/', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const allusers = await users.getAll()
         response.json({
@@ -76,7 +77,7 @@ router.post('/login', async (request, response) => {
     }
 })
 
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const { id } = request.params
         const userDeleted = await users.deleteById(id)
