@@ -1,11 +1,12 @@
 const { response } = require('express')
 const express = require('express')
-
+const authMiddlewares = require('../middlewares/auth')
 const articles = require('../usecases/articles')
 
 const router = express.Router()
+router.use(authMiddlewares.auth)
 
-router.get('/', async (request, response) => {
+router.get('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
     try {
         const allArticles = await articles.getAll()
         response.json({
@@ -25,7 +26,7 @@ router.get('/', async (request, response) => {
     }
 })
 
-router.get('/:id', async (request, response) => {
+router.get('/:id', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
     try {
         const { id } = request.params
         const article = await articles.getById(id)
@@ -46,7 +47,7 @@ router.get('/:id', async (request, response) => {
     }
 })
 
-router.post('/', async (request, response) => {
+router.post('/', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const { title, image, content, user_id, tags, category_id, enabled } = request.body
         const articleCreated = await articles.create(title, image, content, user_id, tags, category_id, enabled)
@@ -67,7 +68,7 @@ router.post('/', async (request, response) => {
     }
 })
 
-router.patch('/:id', async (request, response) => {
+router.patch('/:id', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const { id } = request.params
         const articleUpdated = await articles.updateById(id, request.body)
@@ -88,7 +89,7 @@ router.patch('/:id', async (request, response) => {
     }
 })
 
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const { id } = request.params
         const articleDeleted = await articles.deleteById(id)

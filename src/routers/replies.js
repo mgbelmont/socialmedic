@@ -2,11 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const replies = require('../usecases/replies');
+const authMiddlewares = require('../middlewares/auth')
+router.use(authMiddlewares.auth)
 
-router.get('/',  async (request,response)=>{
-    try{
-        const allReplies= await replies.getAll();
-        response.json({ 
+router.get('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
+        const allReplies = await replies.getAll();
+        response.json({
             success: true,
             message: 'All replies',
             data: {
@@ -14,21 +16,21 @@ router.get('/',  async (request,response)=>{
             }
         });
 
-    }catch(error){
+    } catch (error) {
         response.status(400);
-        response.json({ 
+        response.json({
             success: false,
             message: 'Error at get all replies',
-            error:  error.message
-            
+            error: error.message
+
         });
-    }    
+    }
 })
 
-router.post('/', async (request,response)=>{
-    try{
+router.post('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
         const replyCreated = await replies.create(request.body);
-        response.json({ 
+        response.json({
             success: true,
             message: 'New Reply created :D',
             data: {
@@ -36,42 +38,43 @@ router.post('/', async (request,response)=>{
             }
         });
 
-    }catch(error){
+    } catch (error) {
         response.status(400);
-        response.json({ 
+        response.json({
             success: false,
             message: 'Error at Reply creation',
-            error:  error.message
-            
+            error: error.message
+
         });
-    }    
+    }
 });
 
-router.get('/:type/:id',async (request,response)=>{
-    try{
-        const { type,id } = request.params;
-        const repliesByDocumentId = await replies.getByDocumentId(type,id);
-        response.json({ 
+router.get('/:type/:id', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
+        const { type, id } = request.params;
+        const repliesByDocumentId = await replies.getByDocumentId(type, id);
+        response.json({
             success: true,
             message: 'Reply Found',
             data: {
-                replies: repliesByDocumentId            }
+                replies: repliesByDocumentId
+            }
         });
 
-    }catch(error){
+    } catch (error) {
         response.status(400)
-        response.json({ 
+        response.json({
             success: false,
             message: 'Error at found replies',
-            error:  error.message
-            
+            error: error.message
+
         });
-    }    
+    }
 });
 
-router.get('/count/:type/:id', async (request,response)=>{
-    try{
-        const {type, id} = request.params
+router.get('/count/:type/:id', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
+        const { type, id } = request.params
         const countReplies = await replies.getCountRepliesByDocument(type, id)
         response.json({
             success: true,
@@ -80,36 +83,36 @@ router.get('/count/:type/:id', async (request,response)=>{
                 replies: countReplies
             }
         })
-    }catch(error){
+    } catch (error) {
         response.status(400)
         response.json({
-            success: false, 
+            success: false,
             message: 'Could not get replies by document',
             error: error.message
         })
     }
 })
 
-router.delete('/:id',async (request,response)=>{
-    try{
+router.delete('/:id', authMiddlewares.authRoles(['admin']), async (request, response) => {
+    try {
         const { id } = request.params;
         const replyDeleted = await replies.deleteById(id);
-        response.json({ 
+        response.json({
             success: true,
             message: 'Reply Deleted',
             data: {
-                replies: replyDeleted            
+                replies: replyDeleted
             }
         });
 
-    }catch(error){
+    } catch (error) {
         response.status(400)
-        response.json({ 
+        response.json({
             success: false,
             message: 'Error at deleted replies',
-            error:  error.message    
+            error: error.message
         });
-    }    
+    }
 });
 
 module.exports = router

@@ -57,8 +57,9 @@ const usersSchema = new mongoose.Schema({
         required: true
     },
     role: {
-        type: String,
+        type: [String],
         enum: ['admin', 'medico'],
+        minLength: 1,
         required: true
     },
     specialty_id: {
