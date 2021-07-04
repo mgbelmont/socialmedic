@@ -3,10 +3,12 @@ const { response } = require('express')
 const express = require('express')
 
 const webinars = require('../usecases/webinars')
+const authMiddlewares = require('../middlewares/auth')
 
 const router = express.Router()
+router.use(authMiddlewares.auth)
 
-router.get('/', async (request, response) => {
+router.get('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
     try {
         const allWebinars = await webinars.getAll()
         response.json({
@@ -26,7 +28,7 @@ router.get('/', async (request, response) => {
     }
 })
 
-router.get('/:id', async (request, response) => {
+router.get('/:id', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
     try {
         const { id } = request.params
         const webinarById = await webinars.getById(id)
@@ -49,7 +51,7 @@ router.get('/:id', async (request, response) => {
     }
 })
 
-router.post('/', async (request, response) => {
+router.post('/', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const { title, user_id, image, video_url, description, datewebinar, duration, category_id } = request.body
         const webinarCreated = await webinars.create(title, user_id, image, video_url, description, datewebinar, duration, category_id)
@@ -70,7 +72,7 @@ router.post('/', async (request, response) => {
     }
 })
 
-router.patch('/:id', async (request, response) => {
+router.patch('/:id', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const { id } = request.params
         const webinarUpdated = await webinars.updateById(id, request.body)
@@ -91,7 +93,7 @@ router.patch('/:id', async (request, response) => {
     }
 })
 
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', authMiddlewares.authRoles(['admin']), async (request, response) => {
     try {
         const { id } = request.params
         const webinarDeleted = await webinars.deleteById(id)

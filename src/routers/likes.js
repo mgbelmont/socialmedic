@@ -1,12 +1,15 @@
 const { response } = require('express')
 const express = require('express')
 
-const likes =  require('../usecases/likes')
+const likes = require('../usecases/likes')
+const authMiddlewares = require('../middlewares/auth')
+
 
 const router = express.Router()
+router.use(authMiddlewares.auth)
 
-router.get('/', async (request,response)=>{
-    try{
+router.get('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
         const allLikes = await likes.getAll()
         response.json({
             success: true,
@@ -15,18 +18,18 @@ router.get('/', async (request,response)=>{
                 likes: allLikes
             }
         })
-    }catch(error){
+    } catch (error) {
         response.status(400)
         response.json({
-            success: false, 
+            success: false,
             message: 'Could not get likes',
             error: error.message
         })
     }
 })
-router.get('/user', async (request,response)=>{
-    try{
-        const {user_id, document_id} = request.body
+router.get('/user', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
+        const { user_id, document_id } = request.body
         const like = await likes.getByUserAndDocument(user_id, document_id)
         response.json({
             success: true,
@@ -35,10 +38,10 @@ router.get('/user', async (request,response)=>{
                 like: like
             }
         })
-    }catch(error){
+    } catch (error) {
         response.status(400)
         response.json({
-            success: false, 
+            success: false,
             message: 'Could not get like',
             error: error.message
         })
@@ -46,9 +49,9 @@ router.get('/user', async (request,response)=>{
 })
 
 
-router.get('/:document/:id', async (request,response)=>{
-    try{
-        const {document, id} = request.params
+router.get('/:document/:id', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
+        const { document, id } = request.params
         const allLikes = await likes.getAllByIdAndDocument(document, id)
         response.json({
             success: true,
@@ -57,19 +60,19 @@ router.get('/:document/:id', async (request,response)=>{
                 likes: allLikes
             }
         })
-    }catch(error){
+    } catch (error) {
         response.status(400)
         response.json({
-            success: false, 
+            success: false,
             message: 'Could not get likes by document',
             error: error.message
         })
     }
 })
 
-router.post('/',  async (request,response)=>{
-    try{
-        const {document_type, document_id, user_id} = request.body
+router.post('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
+        const { document_type, document_id, user_id } = request.body
         const createLike = await likes.create(document_type, document_id, user_id)
         response.json({
             success: true,
@@ -78,20 +81,20 @@ router.post('/',  async (request,response)=>{
                 likes: createLike
             }
         })
-    }catch(error){
+    } catch (error) {
         response.status(400)
         response.json({
-            success: false, 
+            success: false,
             message: 'Could not post like',
             error: error.message
         })
-    } 
+    }
 })
 
-router.delete('/:id', async(request, response) =>{
-    try{
-        
-        const {id} = request.params
+router.delete('/:id', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+    try {
+
+        const { id } = request.params
         const deleteLike = await likes.deleteById(id)
         response.json({
             success: true,
@@ -100,10 +103,10 @@ router.delete('/:id', async(request, response) =>{
                 like: deleteLike
             }
         })
-    }catch(error){
+    } catch (error) {
         response.status(400)
         response.json({
-            success: false, 
+            success: false,
             message: 'Could not delete like',
             error: error.message
         })

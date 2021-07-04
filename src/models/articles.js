@@ -21,9 +21,9 @@ const articlesSchema = new mongoose.Schema({
         type: String,
         required:true
     },
-    status:{
-        type: String,
-        enum: [ 'enabled', 'disabled'],
+    enabled:{
+        type: Boolean,
+        default: false,
         required: true
     },
     category_id: {
