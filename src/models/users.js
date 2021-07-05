@@ -72,6 +72,11 @@ const usersSchema = new mongoose.Schema({
         required: true,
         minLenght: 1
     },
+    professional_license_url: {
+        type: String,
+        required: true,
+        minLenght: 1
+    },
 })
 
 
