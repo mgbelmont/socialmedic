@@ -7,7 +7,7 @@ const authMiddlewares = require('../middlewares/auth')
 const router = express.Router()
 router.use(authMiddlewares.auth)
 
-router.get('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+router.get('/', async (request, response) => {
     try {
         const allSpecialties = await specialties.getAll()
         response.json({
