@@ -2,10 +2,8 @@ const { response } = require('express')
 const express = require('express')
 
 const specialties = require('../usecases/specialties')
-const authMiddlewares = require('../middlewares/auth')
 
 const router = express.Router()
-router.use(authMiddlewares.auth)
 
 router.get('/', async (request, response) => {
     try {
