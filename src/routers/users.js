@@ -3,6 +3,7 @@ const express = require('express')
 
 const users = require('../usecases/users')
 const authMiddlewares = require('../middlewares/auth')
+const jwt = require('../lib/jwt')
 
 const router = express.Router()
 

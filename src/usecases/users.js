@@ -60,7 +60,7 @@ async function login(email, password) {
         throw new Error('Invalid Password')
     }
 
-    return jwt.sign({ id: userFound._id })
+    return jwt.sign({ id: userFound._id, role: userFound.role })
 
 }
 
