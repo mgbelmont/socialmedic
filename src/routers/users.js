@@ -29,11 +29,11 @@ router.get('/', authMiddlewares.authRoles(['admin']), async (request, response) 
 
 router.post('/', async (request, response) => {
     try {
-        const { firstname, lastname, mother_lastname, email, password, specialty_id, professional_license, professional_license_url } = request.body
+        const { firstname, lastname, mother_lastname, email, password, specialty_id, professional_license, professional_license_url, avatar_url } = request.body
 
         const nickname = `${firstname}${lastname}`
 
-        const userCreated = await users.create(firstname, lastname, mother_lastname, nickname, email, password, specialty_id, professional_license, professional_license_url)
+        const userCreated = await users.create(firstname, lastname, mother_lastname, nickname, email, password, specialty_id, professional_license, professional_license_url, avatar_url)
 
         response.json({
             success: true,
