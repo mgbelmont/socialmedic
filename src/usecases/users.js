@@ -21,7 +21,7 @@ function updateById(id, dataToUpdate) {
     return Users.findByIdAndUpdate(id, dataToUpdate);
 }
 
-async function create(firstname, lastname, mother_lastname, nickname, email, password, specialty_id, professional_license, professional_license_url) {
+async function create(firstname, lastname, mother_lastname, nickname, email, password, specialty_id, professional_license, professional_license_url, avatar_url) {
 
 
     // Inicio de la funcion userFound para saber si el email ya existe
@@ -42,7 +42,7 @@ async function create(firstname, lastname, mother_lastname, nickname, email, pas
     const status = "Validando"
 
 
-    return Users.create({ firstname, lastname, mother_lastname, nickname, email, password: encryptedPassword, can_publish, status, role, specialty_id, professional_license, professional_license_url, updatedate, registerdate })
+    return Users.create({ firstname, lastname, mother_lastname, nickname, email, password: encryptedPassword, can_publish, status, role, specialty_id, professional_license, professional_license_url, updatedate, registerdate, avatar_url })
 
 }
 
