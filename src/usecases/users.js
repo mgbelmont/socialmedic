@@ -4,6 +4,8 @@ const bcrypt = require('../lib/bcrypt')
 
 const jwt = require('../lib/jwt')
 
+const email = require('../lib/sendEmail')
+
 
 function getAll() {
     return Users.find()
@@ -17,7 +19,14 @@ function deleteById(id) {
     return Users.findByIdAndDelete(id);
 }
 
-function updateById(id, dataToUpdate) {
+async function updateById(id, dataToUpdate) {
+    const datauser = await Users.findById(id)
+
+    if (dataToUpdate.status) {
+        console.log("estatus: ", dataToUpdate.status)
+        await email.sendEmail(datauser.email, dataToUpdate.status)
+    }
+
     return Users.findByIdAndUpdate(id, dataToUpdate);
 }
 
@@ -64,8 +73,6 @@ async function login(email, password) {
 
 }
 
-
-
 module.exports = {
     getAll,
     getById,
@@ -73,6 +80,7 @@ module.exports = {
     updateById,
     create,
     login
+
 }
 
 
