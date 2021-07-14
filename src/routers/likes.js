@@ -27,7 +27,7 @@ router.get('/', authMiddlewares.authRoles(['admin', 'medico']), async (request, 
         })
     }
 })
-router.get('/user', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
+router.post('/user', authMiddlewares.authRoles(['admin', 'medico']), async (request, response) => {
     try {
         const { user_id, document_id } = request.body
         const like = await likes.getByUserAndDocument(user_id, document_id)
