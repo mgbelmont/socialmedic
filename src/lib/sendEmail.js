@@ -19,14 +19,14 @@ async function sendEmail(email, type) {
             rejectUnauthorized: true
         }
     });
-    console.log("ya paso")
+
     let subjectEmail = "";
     let textEmail = ""
     let htmlEmail = ""
     if (type === "Validando") {
         subjectEmail = "Registro Exitoso";
-        textEmail = "Le recordamos que ahora forma parte SocialMedic donde podrá obtener la información más actualizada de la industria médica.Su cuenta será validada en unos momentos y recibirá un aviso por este mismo medio."
-        htmlEmail = "<p>Le recordamos que ahora forma parte SocialMedic donde podrá obtener la información más actualizada de la industria médica.</p> <p>Su cuenta será validada en unos momentos y recibirá un aviso por este mismo medio.</p>"
+        textEmail = "Le recordamos que ahora forma parte de SocialMedic donde podrá obtener la información más actualizada de la industria médica.Su cuenta será validada en unos momentos y recibirá un aviso por este mismo medio."
+        htmlEmail = "<p>Le recordamos que ahora forma parte de SocialMedic donde podrá obtener la información más actualizada de la industria médica.</p> <p>Su cuenta será validada en unos momentos y recibirá un aviso por este mismo medio.</p>"
 
     }
 
