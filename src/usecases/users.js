@@ -4,7 +4,7 @@ const bcrypt = require('../lib/bcrypt')
 
 const jwt = require('../lib/jwt')
 
-const email = require('../lib/sendEmail')
+const emailSend = require('../lib/sendEmail')
 
 
 function getAll() {
@@ -24,7 +24,7 @@ async function updateById(id, dataToUpdate) {
 
     if (dataToUpdate.status) {
         console.log("estatus: ", dataToUpdate.status)
-        await email.sendEmail(datauser.email, dataToUpdate.status)
+        await emailSend.sendEmail(datauser.email, dataToUpdate.status)
     }
 
     return Users.findByIdAndUpdate(id, dataToUpdate);
@@ -49,7 +49,7 @@ async function create(firstname, lastname, mother_lastname, nickname, email, pas
     const can_publish = false
     const role = ["medico"]
     const status = "Validando"
-
+    await emailSend.sendEmail(email, status)
 
     return Users.create({ firstname, lastname, mother_lastname, nickname, email, password: encryptedPassword, can_publish, status, role, specialty_id, professional_license, professional_license_url, updatedate, registerdate, avatar_url })
 
